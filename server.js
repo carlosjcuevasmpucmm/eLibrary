@@ -18,6 +18,9 @@
 
     //Rutas
     const user = require('./routes/user');
+    // const apiR = require("./routes/apiRoutes");
+    // const htmlR = require("./routes/htmlRoutes");
+
 
 
     //Middleware (express config)
@@ -61,6 +64,8 @@
     
     // //Routes - sin autenticacacion 
     app.use('/user', user);
+    
+        
     //Start the server
     app.listen(PORT,function(){ 
         console.log("app running on port " + PORT + "!");
