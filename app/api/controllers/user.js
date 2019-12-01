@@ -8,10 +8,10 @@ module.exports = {
  create: function (req, res, next) {
   
   userModel.create ({ name: req.body.name, 
-                    email: req.body.email, 
-                    password: req.body.password,
-                    order: req.body.order,
-                    ordersPack: req.body.ordersPack
+                     username: req.body.username, 
+                     email: req.body.email,
+                     password: req.body.password,
+                     isAdmin: req.body.isAdmin
                 }, function (err, result) {
       if (err) 
        next(err);
