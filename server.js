@@ -64,24 +64,26 @@
     
     }
 
-    //Validar un usuario
-    function validateAdmin(req, res, next) {
-      jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
-        if (err) {
-          res.json({status:"error", message: err.message, data:null});
-        }else{
-          // Anade el id de usuario a los request, dando pase a rutas protegidas
-          if (req.body.isAdmin == true){
-          req.body.userId = decoded.id;
-          next();
-          }
-          else{
-            res.json({status:"error", message:"You are not admin"});
-          }
-        }
-      });
+    //Validar ADMIN, PUEDE QUE NO SE IMPLEMENTE ASI. iNVESTIGANDO
+    // function validateAdmin(req, res, next) {
+    //   jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
+    //     if (err) {
+    //       res.json({status:"error", message: err.message, data:null});
+    //     }else{
+    //       // Anade el id de usuario a los request, dando pase a rutas protegidas
+    //       if (req.body.isAdmin == true){
+    //       req.body.userId = decoded.id;
+    //       next();
+    //       }
+    //       else{
+    //         res.json({status:"error", message:"You are not admin"});
+    //       }
+    //     }
+    //   });
       
-      }
+    //   }
+    // //Rutas admin
+    //  app.use('/bookAdm', validateAdmin, bookAdm);
   
     require("./routes/apiRoutes")(app);
     require("./routes/htmlRoutes")(app);
@@ -93,8 +95,7 @@
     //Rutas user
     app.use('/book', validateUser, book);
 
-    //Rutas admin
-     app.use('/bookAdm', validateAdmin, bookAdm);  
+      
     
 
     // express doesn't consider not found 404 as an error so we need to handle 404 explicitly
