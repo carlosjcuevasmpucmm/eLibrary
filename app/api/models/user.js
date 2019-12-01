@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 //Se usara para el hash de la clave de usuario
 const saltRounds = 10;

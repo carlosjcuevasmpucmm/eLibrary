@@ -18,6 +18,7 @@
 
     //Rutas
     const user = require('./routes/user');
+    const book = require('./routes/book');
     // const apiR = require("./routes/apiRoutes");
     // const htmlR = require("./routes/htmlRoutes");
 
@@ -62,9 +63,28 @@
     require("./routes/htmlRoutes")(app);
 
     
-    // //Routes - sin autenticacacion 
-    app.use('/user', user);
     
+    app.use('/user', user);
+    app.use('/book', book);
+
+    
+
+    // express doesn't consider not found 404 as an error so we need to handle 404 explicitly
+// handle 404 error
+app.use(function(req, res, next) {
+  let err = new Error('Not Found');
+     err.status = 404;
+     next(err);
+ });
+ // handle errors
+ app.use(function(err, req, res, next) {
+  console.log(err);
+  
+   if(err.status === 404)
+    res.status(404).json({message: "Not found"});
+   else 
+     res.status(500).json({message: "Something looks wrong :( !!!"});
+ });
         
     //Start the server
     app.listen(PORT,function(){ 
