@@ -63,9 +63,11 @@
     require("./routes/htmlRoutes")(app);
 
     
-    
+    //Rutas publicas
     app.use('/user', user);
-    app.use('/book', book);
+
+    //Rutas privadas
+    app.use('/book', validateUser, book);
 
     
 
