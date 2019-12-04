@@ -3,7 +3,9 @@ const router = express.Router();
 const bookController = require('../app/api/controllers/book');
 const multer = require('multer');
 const { memoryStorage } = require('multer');
-const TTS = require('../app/AWS/TTS');
+const TTS = require('../app/AWS/TTS', '../app/AWS/awscreds.json');
+
+
 
 
 
