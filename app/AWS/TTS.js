@@ -10,12 +10,12 @@ const Polly = new AWS.Polly({
 })
 
 const s3 = new AWS.S3();
-
+// Manejar try catch y esas cosas
 exports.uploadAudio = async function (req, res, next) {
 let string = Buffer.from(req.file.buffer, 'hex').toString('utf8')
 string ='<speak>'+ string +'</speak>';
 
-console.log(string);
+
 
 let pollyparams = {
     'Text': string,
@@ -38,6 +38,7 @@ let pollyparams = {
             if (err) {
                 console.log(err.message);
             } else {    
+                req.body.audio_id = data.Location;
                 console.log(data.Location);
                 next();
             }
@@ -46,3 +47,22 @@ let pollyparams = {
         
     }
 })}
+
+exports.uploadText = async function (req, res, next) {
+
+    let s3params = {
+        Body: req.file.buffer, 
+        Bucket: "elibraryt", 
+        Key: "prue.txt",
+        ACL: "public-read"}
+    s3.upload(s3params, function(err, data) {
+        if (err) {
+            console.log(err.message);
+        } else {    
+            req.body.text_id = data.Location;
+            console.log(data.Location);
+            next();
+        }
+    });
+
+}
