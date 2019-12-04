@@ -3,7 +3,7 @@ const router = express.Router();
 const bookController = require('../app/api/controllers/book');
 const multer = require('multer');
 const { memoryStorage } = require('multer');
-const TTS = require('../app/AWS/TTS', '../app/AWS/awscreds.json');
+const TTS = require('../app/AWS/TTS');
 
 
 
@@ -16,7 +16,7 @@ const m = multer({
     }
   });
 
-router.post('/', m.single("file"), bookController.create,TTS.uploadAudio);
+router.post('/', m.single("file"), TTS.uploadAudio, bookController.create);
 router.get('/', bookController.getAll);
 router.get('/:bookId', bookController.getById);
 router.delete('/:bookId', bookController.deleteById);
