@@ -30,7 +30,7 @@ let pollyparams = {
         let s3params = {
             Body: data.AudioStream, 
             Bucket: "elibraryt", 
-            Key: "prue.mp3",
+            Key: req.body.title+"_"+req.body.author+'.mp3',
             ACL: "public-read"
         };
 
@@ -53,7 +53,7 @@ exports.uploadText = async function (req, res, next) {
     let s3params = {
         Body: req.file.buffer, 
         Bucket: "elibraryt", 
-        Key: "prue.txt",
+        Key: req.body.title+"_"+req.body.author+'.txt',
         ACL: "public-read"}
     s3.upload(s3params, function(err, data) {
         if (err) {
