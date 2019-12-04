@@ -16,7 +16,7 @@ const m = multer({
     }
   });
 
-router.post('/', bookController.create, m.single("file"),TTS.uploadAudio);
+router.post('/', m.single("file"), bookController.create,TTS.uploadAudio);
 router.get('/', bookController.getAll);
 router.get('/:bookId', bookController.getById);
 router.delete('/:bookId', bookController.deleteById);
