@@ -4,29 +4,7 @@
     
     var app = express();
     var PORT = process.env.PORT || 3000;
-
-    const logger = require('morgan');
-    const bodyParser = require('body-parser');
-    var jwt = require('jsonwebtoken');
     
-    
-
-    var exphbs = require("express-handlebars");
-
-    
-
-    // conexion a mongodb desde inicio del servidor
-    mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:')); 
-
-    //Rutas
-    const user = require('./routes/user');
-    const book = require('./routes/book');
-    const bookAdm = require('./routes/bookAdm');
-    // const apiR = require("./routes/apiRoutes");
-    // const htmlR = require("./routes/htmlRoutes");
-
-
-
     //Middleware (express config)
     app.use(express.urlencoded({extended:true}))
     app.use(express.json());
