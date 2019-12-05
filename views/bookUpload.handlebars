@@ -1,0 +1,74 @@
+
+         <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+     <div class="col-md-6 offset-md-3 mt-5 card">
+       <div class="card-body">
+        <br>
+        <h1>Upload your book</h1>
+        <form accept-charset="UTF-8">
+          <div class="form-group">
+            <label for="name" required="required">Name</label>
+            <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Ex. The Da Vinci Code" required="required">
+          </div>
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" name="author" class="form-control" id="author" placeholder="" required="required">
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="platform" required="required">
+              <option>Romance</option>
+              <option>Literature / Fiction</option>
+              <option>Fantasy</option>
+              <option>Science Fiction</option>
+              <option>Mistery / Suspense</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <div class="form-group editar">
+            <label for="year">Year</label>
+            <input type="number" name="year" class="form-control" id="year" width="-100px">
+          </div>
+          <div class="form-group">
+            <label for="desc">Description</label>
+            <textarea type="text" name="name" class="form-control" id="desc" required="required"> </textarea>
+          </div>
+          <hr>
+          <div class="form-group mt-3">
+            <label class="mr-2">Upload your book -></label>
+            <input type="file" name="file" >
+          </div>
+          <hr>
+          <button id="submitBtn" type="confirm" class="btn btn-primary">Confirm</button>
+        </form>
+        </div>
+    </div>
+
+<style>
+  .editar {width: 15%} 
+  body {
+          background-image: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&w=1000&q=80");
+          background-color: #cccccc;
+         }
+</style>
+<script>
+  $('#submitBtn').click(function(e){
+    e.preventDefault();
+
+    let newBook = {
+      name: $('#name').val(),
+      author: $('#author').val(),
+      category: $('#category').val(),
+      year: $('#year').val(),
+      description: $('#desc').val()
+    }
+      console.log(newBook); 
+
+      //pero ahora que?, tu hicite el merge?, no deberiamo proba el login? dale lo hare ahora mimo , pero hay que hace
+      //SIIImerge de ete?
+  })
+  
+
+</script>
