@@ -8,6 +8,8 @@
     const logger = require('morgan');
     const bodyParser = require('body-parser');
     var jwt = require('jsonwebtoken');
+    
+    
 
     var exphbs = require("express-handlebars");
 
@@ -18,6 +20,8 @@
 
     //Rutas
     const user = require('./routes/user');
+    const book = require('./routes/book');
+    const bookAdm = require('./routes/bookAdm');
     // const apiR = require("./routes/apiRoutes");
     // const htmlR = require("./routes/htmlRoutes");
 
@@ -43,28 +47,73 @@
 
     app.set("view engine", "handlebars");
 
+    app.set('secretKey', 'nodeRestApi'); 
+
 
     //Validar un usuario
     function validateUser(req, res, next) {
-    jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
-      if (err) {
-        res.json({status:"error", message: err.message, data:null});
-      }else{
-        // Anade el id de usuario a los request, dando pase a rutas protegidas
-        req.body.userId = decoded.id;
-        next();
-      }
-    });
+      jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
+        if (err) {
+          res.json({status:"error", message: err.message, data:null});
+        }else{
+          // Anade el id de usuario a los request, dando pase a rutas protegidas
+          req.body.userId = decoded.id;
+          next();
+        }
+      });
     
     }
+
+    //Validar ADMIN, PUEDE QUE NO SE IMPLEMENTE ASI. iNVESTIGANDO
+    // function validateAdmin(req, res, next) {
+    //   jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
+    //     if (err) {
+    //       res.json({status:"error", message: err.message, data:null});
+    //     }else{
+    //       // Anade el id de usuario a los request, dando pase a rutas protegidas
+    //       if (req.body.isAdmin == true){
+    //       req.body.userId = decoded.id;
+    //       next();
+    //       }
+    //       else{
+    //         res.json({status:"error", message:"You are not admin"});
+    //       }
+    //     }
+    //   });
+      
+    //   }
+    // //Rutas admin
+    //  app.use('/bookAdm', validateAdmin, bookAdm);
   
     require("./routes/apiRoutes")(app);
     require("./routes/htmlRoutes")(app);
 
     
-    // //Routes - sin autenticacacion 
+    //Rutas publicas
     app.use('/user', user);
+
+    //Rutas user
+    app.use('/book', validateUser, book);
+
+      
     
+
+    // express doesn't consider not found 404 as an error so we need to handle 404 explicitly
+// handle 404 error
+app.use(function(req, res, next) {
+  let err = new Error('Not Found');
+     err.status = 404;
+     next(err);
+ });
+ // handle errors
+ app.use(function(err, req, res, next) {
+  console.log(err);
+  
+   if(err.status === 404)
+    res.status(404).json({message: "Not found"});
+   else 
+     res.status(500).json({message: "Something looks wrong :( !!!"});
+ });
         
     //Start the server
     app.listen(PORT,function(){ 
