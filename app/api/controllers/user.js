@@ -27,18 +27,34 @@ module.exports = {
  //Autenticar usuario asistido por JWS. La sesion dura 1h.
 authenticate: function(req, res, next) {
   userModel.findOne({email:req.body.email}, function(err, userSchema){
-     if (err) {
-      next(err);
+   
+   if (userSchema==null){
+      
+      res.json({status:"error", message: "Invalid email!", data:null});
+      // res.end;
+      
+   
+   }  
+   
+   if (err) {
+      
      } else {
+
+      if (userSchema != null){
+        
         let payload = {id: userSchema._id, admin: userSchema.isAdmin};
         
 if(bcrypt.compareSync(req.body.password, userSchema.password)) {
 const token = jwt.sign( payload, req.app.get('secretKey'), { expiresIn: '1d' });
 res.json({status:"success", message: "user found!!!", data:{user: userSchema, token:token}});
-}else{
-res.json({status:"error", message: "Invalid email/password!!!", data:null});
 }
-   }
+else{
+res.json({status:"error", message: "Invalid password!", data:null});
+}
+      }
+
+     }
+   
     });
 
  },
