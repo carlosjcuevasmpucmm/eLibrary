@@ -1,9 +1,12 @@
 
     var express = require("express");
-    const mongoose = require('./config/database'); //database configuration   
-    
+    const exphbs = require("express-handlebars");
     var app = express();
+    var logger = require("morgan");
+    var bodyParser = require("body-parser");
     var PORT = process.env.PORT || 3000;
+    const mongoose = require("mongoose");
+    const jwt = require("jsonwebtoken");
     
     //Middleware (express config)
     app.use(express.urlencoded({extended:true}))
@@ -63,26 +66,29 @@
     // //Rutas admin
     //  app.use('/bookAdm', validateAdmin, bookAdm);
   
-    require("./routes/apiRoutes")(app);
     require("./routes/htmlRoutes")(app);
 
-    
+    const user = require("./routes/user");
     //Rutas publicas
     app.use('/user', user);
 
+    const book = require("./routes/book");
     //Rutas user
-    app.use('/book', validateUser, book);
+    // app.use('/book', validateUser, book);
+    app.use('/book', book);
 
-      
+    const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlinesFinal";
+
+    mongoose.connect(MONGODB_URI);
     
 
-    // express doesn't consider not found 404 as an error so we need to handle 404 explicitly
-// handle 404 error
-app.use(function(req, res, next) {
-  let err = new Error('Not Found');
-     err.status = 404;
-     next(err);
- });
+//     // express doesn't consider not found 404 as an error so we need to handle 404 explicitly
+// // handle 404 error
+// app.use(function(req, res, next) {
+//   let err = new Error('Not Found');
+//      err.status = 404;
+//      next(err);
+//  });
  // handle errors
  app.use(function(err, req, res, next) {
   console.log(err);

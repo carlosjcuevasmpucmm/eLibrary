@@ -38,7 +38,7 @@
           <hr>
           <div class="form-group mt-3">
             <label class="mr-2">Upload your book -></label>
-            <input type="file" name="file" >
+            <input id="fileinput" type="file">
           </div>
           <hr>
           <button id="submitBtn" type="confirm" class="btn btn-primary">Confirm</button>
@@ -64,7 +64,49 @@
       year: $('#year').val(),
       description: $('#desc').val()
     }
+
       console.log(newBook); 
+     function handleFileSelect()
+  {               
+    if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+      alert('The File APIs are not fully supported in this browser.');
+      return;
+    }   
+
+    input = document.getElementById('fileinput');
+    if (!input) {
+      alert("Um, couldn't find the fileinput element.");
+    }
+    else if (!input.files) {
+      alert("This browser doesn't seem to support the `files` property of file inputs.");
+    }
+    else if (!input.files[0]) {
+      alert("Please select a file before clicking 'Load'");               
+    }
+    else {
+      file = input.files[0];
+      console.log(file);
+
+      const data = new FormData(input.files[0]);
+      newBook.text = data;
+      data.append("userfile", file);
+      $.ajax({
+         type: "POST",
+         url: "/book",
+         data: newBook,
+         cache: false,
+         success: function (data) {
+            
+         }
+      }).then(function (data) {
+         if (data) {
+            alert("Sucess");
+            window.location.href = "/upload";
+         }
+      }); 
+    }
+  }
+  handleFileSelect();   
 
       
   })
