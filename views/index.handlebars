@@ -27,7 +27,7 @@
                   </div>
 
                   <div class="col-md-12 text-center ">
-                     <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                     <button id="logBtn" type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
                   </div>
                   <div class="col-md-12 ">
                      <div class="login-or">
@@ -85,7 +85,6 @@
 </div>
 <style>
    body {
-      padding-top: 4.2rem;
       padding-bottom: 4.2rem;
       background: rgba(0, 0, 0, 0.76);
    }
@@ -175,6 +174,28 @@
    }
 </style>
 <script>
+   $("#logBtn").click(function(e){
+      e.preventDefault();
+       const credentials = {
+          username: $('#emai').val(),
+          password: $('#passwor').val()
+       }
+       console.log(credentials);
+       $.ajax({
+         type: "POST",
+         url: "/user/authenticate",
+         data: credentials,
+         cache: false,
+         success: function (data) {
+            
+         }
+      }).then(function (data) {
+         if (data) {
+            alert(data.message);
+         }
+      });
+   })
+
    $('#submitBtn').click(function (e) {
       e.preventDefault();
       let newUser = {

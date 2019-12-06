@@ -67,7 +67,6 @@
     //  app.use('/bookAdm', validateAdmin, bookAdm);
   
     require("./routes/htmlRoutes")(app);
-    require("./routes/apiRoutes")(app);
 
     const user = require("./routes/user");
     //Rutas publicas
@@ -75,7 +74,8 @@
 
     const book = require("./routes/book");
     //Rutas user
-    app.use('/book', validateUser, book);
+    // app.use('/book', validateUser, book);
+    app.use('/book', book);
 
     const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlinesFinal";
 

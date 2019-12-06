@@ -1,7 +1,7 @@
 // Example Node.js AWS Polly Script that saves an mp3 file to S3
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(
-  "/Users/claudiosaillant/gt/sandbox/projects/eLibrary/app/AWS/config.json"
+  "/Users/BILL/gt/sandbox/projects/eLibrary/app/AWS/config.json"
 );
 
 const Polly = new AWS.Polly({
