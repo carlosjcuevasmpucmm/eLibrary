@@ -17,7 +17,7 @@ const m = multer({
     }
   });
 
-router.post('/',userController.userIsAdmin, m.single("file"),TTS.uploadText, TTS.uploadAudio, bookController.create);
+router.post('/',userController.userIsAdmin, m.single("file"),bookController.handleFileExtension,TTS.uploadText, TTS.uploadAudio, bookController.create);
 router.delete('/:bookId', userController.userIsAdmin,bookController.deleteById);
 router.put('/:bookId',userController.userIsAdmin, bookController.updateById);
 

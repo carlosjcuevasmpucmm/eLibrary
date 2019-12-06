@@ -131,8 +131,15 @@ module.exports = {
 
       
         
-
-        
+      handleFileExtension: function(req, res, next ){
+      let file_ext = req.file.originalname.split('.').pop();
+      if(file_ext!='txt'){
+        res.json({status:"error", message: "Solo subir archivo .txt", data:null});
+      }
+      else{
+        next();
+      }
+      }
       
 
 
