@@ -15,7 +15,7 @@ module.exports = {
                             if (err) 
                              next(err);
                             else
-                             res.json({status:"success", message: "titulo autor success", data:{book: result }});
+                             res.json({status:"success", message: "Libro creado", data:{book: result }});
                              
                             }
                         )

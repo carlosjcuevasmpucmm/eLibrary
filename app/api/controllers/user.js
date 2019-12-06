@@ -46,7 +46,7 @@ authenticate: function(req, res, next) {
         
 if(bcrypt.compareSync(req.body.password, userSchema.password)) {
 const token = jwt.sign( payload, req.app.get('secretKey'), { expiresIn: '1d' });
-res.json({status:"success", message: "user found!!!", data:{user: userSchema, token:token}});
+res.json({status:"success", message: "user found!", data:{user: userSchema, token:token}});
 }
 else{
 res.json({status:"error", message: "Invalid password!", data:null});
