@@ -19,8 +19,10 @@ const m = multer({
 router.post('/', m.single("file"),TTS.uploadText, TTS.uploadAudio, bookController.create);
 router.get('/', bookController.getAll);
 router.get('/:bookId', bookController.getById);
+router.get('/read/:bookId', bookController.readBookId);
 router.delete('/:bookId', bookController.deleteById);
 router.put('/:bookId', bookController.updateById);
+
 
 
 
