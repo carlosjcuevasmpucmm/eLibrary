@@ -1,0 +1,120 @@
+{{!-- <div class="card" style="width: 25rem; display: inline-block">
+<img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg" style="width: 15rem;>
+<div class="card-body">
+ 
+  <p class="card-text">
+      Harry Potter has been living an ordinary life, constantly abused by his surly and cold aunt and uncle, 
+      Vernon and Petunia Dursley and bullied by their spoiled son Dudley since the death of his parents ten years 
+      prior. His life changes on the day of his eleventh birthday when he receives a letter of acceptance 
+      into Hogwarts School of Witchcraft and Wizardry, delivered by a half-giant named Rubeus Hagrid after previous 
+      letters had been destroyed by Vernon and Petunia... 
+      
+      Author : J. K. Rowling            Year : 1998
+  </p>
+  <a href="#" class="stretched-link"></a>
+</div>
+  </div> --}}
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<style>
+  book {
+    height: 40%;
+  }
+
+  h1 {
+    padding: 25px;
+  }
+
+  .book {
+    margin-bottom: 15px;  
+    }
+</style>
+<h1>Books</h1>
+<div class="row">
+
+    <div class="col">
+    <div class="card book" style="width: 18rem;">
+      <div class="mx-auto">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg"
+          class="card-img-top" alt="">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Harry Potter and the Philosopher's Stone</h5>
+        <p class="card-text desc">
+          Harry Potter has been living an ordinary life, constantly abused by his surly and cold aunt and uncle,
+          Vernon and Petunia Dursley and bullied by their spoiled son Dudley since the death of his parents ten years
+          prior. His life changes on the day of his eleventh birthday when he receives a letter of acceptance
+          into Hogwarts School of Witchcraft and Wizardry, delivered by a half-giant named Rubeus Hagrid after previous
+          letters had been destroyed by Vernon and Petunia... 
+        </p>
+        <h5>Author</h5>
+        <p class="card-text author">
+          J. K. Rowling Year
+        </p>
+        <h5>Year</h5>
+        <p class="card-test year">1998</p>
+        <a href="#" class="btn btn-primary  text-center">Read Book</a> 
+      </div> 
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+  $('.book').click(function () {
+    console.log('Heyy')
+  })
+
+  let hey = $('#hel').text();
+  let wholeText = hey;
+  console.log(wholeText)
+  hey = hey.split(' ');
+  if (hey.length > 5) {
+    let string = '';
+    toUse = [];
+    for (let i = 0; i < 3; i++) {
+      toUse.push(hey[i]);
+
+    }
+    console.log(toUse)
+    $('#hel').text(toUse.join(' '))
+    $('#hel').append(" <a id='more'>see more</a>");
+
+  }
+
+  const seeLess = () => {
+    $('#hel').text(toUse.join(' '))
+    $('#hel').append(" <a id='more'>see more</a>");
+    $('#more').click(function () {
+      seeMore();
+
+
+    });
+  }
+
+  const seeMore = () => {
+    $('#hel').text(wholeText)
+    $('#hel').append(" <a id='less'>see less</a>");
+    $('#less').click(function () {
+
+      seeLess();
+
+    });
+  }
+
+  $('#more').click(function () {
+    seeMore();
+
+
+  });
+
+  $('#less').click(function () {
+
+    seeLess();
+
+  });
+</script>
