@@ -1,24 +1,30 @@
 
 const BookModel = require('../models/book');
 const UserModel = require('../models/user');
+const TTS = require('../app/AWS/TTS');
 
 
 module.exports = {
     
     create: function(req, res, next) {
-     BookModel.create(
-                        {       title: req.body.title, 
-                                author: req.body.author, 
-                                text_id:req.body.text_id,
-                                audio_id:req.body.audio_id
-                        }, function (err, result) {
-                            if (err) 
-                             next(err);
-                            else
-                             res.json({status:"success", message: "titulo autor success", data:{book: result }});
-                             
-                            }
-                        )
+
+      TTS.uploadAudio(req).then(audioUrl =>{
+        TTS.uploadText(req).then(bookUrl =>{
+          BookModel.create(
+            {       title: req.body.title, 
+                    author: req.body.author, 
+                    text_id:bookUrl,
+                    audio_id:audioUrl
+            }, function (err, result) {
+                if (err) 
+                 next(err);
+                else
+                 res.json({status:"success", message: "titulo autor success", data:{book: result }});
+                 
+                }
+            )
+        })
+      })
 
     },
 
