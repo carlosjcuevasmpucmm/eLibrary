@@ -4,6 +4,7 @@ const bookController = require('../app/api/controllers/book');
 const multer = require('multer');
 const { memoryStorage } = require('multer');
 const TTS = require('../app/AWS/TTS');
+const userController = require('../app/api/controllers/user');
 
 
 
@@ -16,15 +17,13 @@ const m = multer({
     }
   });
 
-router.post('/', m.single("file"),TTS.uploadText, TTS.uploadAudio, bookController.create);
+router.post('/',userController.userIsAdmin, m.single("file"),TTS.uploadText, TTS.uploadAudio, bookController.create);
+router.delete('/:bookId', userController.userIsAdmin,bookController.deleteById);
+router.put('/:bookId',userController.userIsAdmin, bookController.updateById);
+
 router.get('/', bookController.getAll);
 router.get('/:bookId', bookController.getById);
 router.get('/read/:bookId', bookController.readBookId);
 router.get('/listen/:bookId', bookController.listenBookId);
-router.delete('/:bookId', bookController.deleteById);
-router.put('/:bookId', bookController.updateById);
-
-
-
 
 module.exports = router;

@@ -8,12 +8,8 @@
     const logger = require('morgan');
     const bodyParser = require('body-parser');
     var jwt = require('jsonwebtoken');
-    
-    
-
+  
     var exphbs = require("express-handlebars");
-
-    
 
     // conexion a mongodb desde inicio del servidor
     mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:')); 
@@ -21,7 +17,6 @@
     //Rutas
     const user = require('./routes/user');
     const book = require('./routes/book');
-    const bookAdm = require('./routes/bookAdm');
     // const apiR = require("./routes/apiRoutes");
     // const htmlR = require("./routes/htmlRoutes");
 
@@ -46,8 +41,9 @@
     );
 
     app.set("view engine", "handlebars");
+    
 
-    app.set('secretKey', 'nodeRestApi'); 
+    app.set('secretKey', 'eLibraryWins'); 
 
 
     //Validar un usuario
@@ -63,27 +59,6 @@
       });
     
     }
-
-    //Validar ADMIN, PUEDE QUE NO SE IMPLEMENTE ASI. iNVESTIGANDO
-    // function validateAdmin(req, res, next) {
-    //   jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
-    //     if (err) {
-    //       res.json({status:"error", message: err.message, data:null});
-    //     }else{
-    //       // Anade el id de usuario a los request, dando pase a rutas protegidas
-    //       if (req.body.isAdmin == true){
-    //       req.body.userId = decoded.id;
-    //       next();
-    //       }
-    //       else{
-    //         res.json({status:"error", message:"You are not admin"});
-    //       }
-    //     }
-    //   });
-      
-    //   }
-    // //Rutas admin
-    //  app.use('/bookAdm', validateAdmin, bookAdm);
   
     require("./routes/apiRoutes")(app);
     require("./routes/htmlRoutes")(app);
@@ -91,8 +66,7 @@
     
     //Rutas publicas
     app.use('/user', user);
-
-    //Rutas user
+    //Rutas privadas
     app.use('/book', validateUser, book);
 
       
