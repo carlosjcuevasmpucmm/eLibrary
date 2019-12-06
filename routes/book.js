@@ -20,6 +20,7 @@ router.post('/', m.single("file"),TTS.uploadText, TTS.uploadAudio, bookControlle
 router.get('/', bookController.getAll);
 router.get('/:bookId', bookController.getById);
 router.get('/read/:bookId', bookController.readBookId);
+router.get('/listen/:bookId', bookController.listenBookId);
 router.delete('/:bookId', bookController.deleteById);
 router.put('/:bookId', bookController.updateById);
 

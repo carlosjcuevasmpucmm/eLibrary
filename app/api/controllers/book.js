@@ -97,7 +97,7 @@ module.exports = {
           if (err) {
            next(err);
           } else {
-           res.json({status:"success", message: "Libro  encontrado, a leer!", data:{text: result.audio_text}});
+           res.json({status:"success", message: "Libro  encontrado, a leer!", data:{text: result.audio_id}});
           }
          });
       }
