@@ -14,7 +14,14 @@ const OrderSchema = new Schema({
     type: String,
     required:true,
   },
-
+  year: {
+    type: Number,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
   text_id: {
     type: String,
     required: true
@@ -24,8 +31,6 @@ const OrderSchema = new Schema({
     type: String,
     required: true
   },
-
-  
 });
 
 

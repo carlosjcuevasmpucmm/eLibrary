@@ -45,6 +45,11 @@ UserSchema.pre('save', function(next){
 this.password = bcrypt.hashSync(this.password, saltRounds);
 next();
 });
+// This creates our model from the above schema, using mongoose's model method
 
+var user = mongoose.model("UserModel", UserSchema);
 
-module.exports = mongoose.model('UserModel', UserSchema);
+// Export the Article model
+module.exports = user;
+
+// module.exports = mongoose.model('UserModel', UserSchema);

@@ -64,6 +64,20 @@
       year: $('#year').val(),
       description: $('#desc').val()
     }
+     $.ajax({
+         type: "POST",
+         url: "/book",
+         data: newBook,
+         cache: false,
+         success: function (data) {
+            
+         }
+      }).then(function (data) {
+         if (data) {
+            alert("Sucess");
+            window.location.href = "/upload";
+         }
+      });
       console.log(newBook); 
 
       
