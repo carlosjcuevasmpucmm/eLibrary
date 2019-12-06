@@ -90,7 +90,16 @@ module.exports = {
            res.json({status:"success", message: "Libro  encontrado, a leer!", data:{text: result.text_id}});
           }
          });
+      },
 
+      listenBookId: function(req, res, next ){
+        BookModel.findById(req.params.bookId, function(err, result){
+          if (err) {
+           next(err);
+          } else {
+           res.json({status:"success", message: "Libro  encontrado, a leer!", data:{text: result.audio_text}});
+          }
+         });
       }
 
 
