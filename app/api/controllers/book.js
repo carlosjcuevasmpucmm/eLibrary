@@ -1,6 +1,8 @@
 
 const BookModel = require('../models/book');
 const UserModel = require('../models/user');
+const multer = require('multer');
+const { memoryStorage } = require('multer');
 
 
 module.exports = {
@@ -47,6 +49,11 @@ module.exports = {
        getById: function(req, res, next) {
         console.log(req.body);
         BookModel.findById(req.params.bookId, function(err, result){
+
+          if (result==null){
+            res.json({status:"error", message: "Libro no encontrado dado el id", data:null});
+          }
+
          if (err) {
           next(err);
          } else {
@@ -58,6 +65,11 @@ module.exports = {
      //Eliminar un libro  
     deleteById: function(req, res, next) {
         BookModel.findByIdAndRemove(req.params.bookId, function(err, result){
+
+          if (result==null){
+            res.json({status:"error", message: "Libro no encontrado dado el id", data:null});
+          }
+
          if(err)
           next(err);
          else {
@@ -74,6 +86,11 @@ module.exports = {
                                 text_id:req.body.text_id,
                                 audio_id:req.body.audio_id
         }, function(err, result){
+
+          if (result==null){
+            res.json({status:"error", message: "Libro no encontrado dado el id", data:null});
+          }
+
       if(err)
           next(err);
          else {
@@ -84,6 +101,11 @@ module.exports = {
 
       readBookId: function(req, res, next ){
         BookModel.findById(req.params.bookId, function(err, result){
+
+          if (result==null){
+            res.json({status:"error", message: "Libro no encontrado dado el id", data:null});
+          }
+
           if (err) {
            next(err);
           } else {
@@ -94,13 +116,24 @@ module.exports = {
 
       listenBookId: function(req, res, next ){
         BookModel.findById(req.params.bookId, function(err, result){
+
+          if (result==null){
+            res.json({status:"error", message: "Libro no encontrado dado el id", data:null});
+          }
+
           if (err) {
            next(err);
           } else {
-           res.json({status:"success", message: "Libro  encontrado, a leer!", data:{text: result.audio_id}});
+           res.json({status:"success", message: "Libro  encontrado, a escuchar!", data:{text: result.audio_id}});
           }
          });
-      }
+      },
+
+      
+        
+
+        
+      
 
 
       
