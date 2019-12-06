@@ -82,6 +82,17 @@ module.exports = {
         });
        },
 
+      readBookId: function(req, res, next ){
+        BookModel.findById(req.params.bookId, function(err, result){
+          if (err) {
+           next(err);
+          } else {
+           res.json({status:"success", message: "Libro  encontrado, a leer!", data:{text: result.text_id}});
+          }
+         });
+
+      }
+
 
       
 }
